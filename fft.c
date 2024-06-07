@@ -29,11 +29,31 @@ void fft(complex double *X, int N) {
     }
 }
 
-int main() {
-    int N = 8; // Number of points, must be a power of 2 for simplicity
-    complex double X[] = {1.0 + 0.0*I, 1.0 + 0.0*I, 1.0 + 0.0*I, 1.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I, 0.0 + 0.0*I};
+// Function to check if a number is a power of 2
+int is_power_of_2(int n) {
+    return (n > 0) && ((n & (n - 1)) == 0);
+}
 
-    printf("Input:\n");
+int main() {
+    int N;
+    printf("Enter the number of points (must be a power of 2): ");
+    scanf("%d", &N);
+
+    if (!is_power_of_2(N)) {
+        printf("The number of points must be a power of 2.\n");
+        return 1;
+    }
+
+    complex double X[N];
+    double real, imag;
+
+    for (int i = 0; i < N; i++) {
+        printf("Enter the real and imaginary parts of point %d: ", i + 1);
+        scanf("%lf %lf", &real, &imag);
+        X[i] = real + imag * I;
+    }
+
+    printf("\nInput:\n");
     for (int i = 0; i < N; i++) {
         printf("%2.1f + %2.1fi\n", creal(X[i]), cimag(X[i]));
     }
